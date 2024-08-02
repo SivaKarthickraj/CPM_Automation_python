@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPM Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Critical Path Method Results</h1>
+
+        <h2>Input Table</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Duration</th>
+                    <th>Dependencies</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task, duration, predecessor in zip(activities, durations, predecessors) %}
+                <tr>
+                    <td>{{ task }}</td>
+                    <td>{{ duration }}</td>
+                    <td>{{ predecessor }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        
+
+        <h2>Network Diagram</h2>
+        <div id="network_diagram">{{ network_diagram | safe }}</div>
+
+       
+
+        <h2>Critical Path</h2>
+        <p>{{ result | join(', ') }}</p>
+
+        <h2>Task Timing</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Earliest Start</th>
+                    <th>Earliest Finish</th>
+                    <th>Latest Start</th>
+                    <th>Latest Finish</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task, details in details.items() %}
+                <tr>
+                    <td>{{ task }}</td>
+                    <td>{{ details['earliest_start'] }}</td>
+                    <td>{{ details['earliest_finish'] }}</td>
+                    <td>{{ details['latest_start'] }}</td>
+                    <td>{{ details['latest_finish'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

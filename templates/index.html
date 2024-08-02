@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Critical Path Method</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Task Information</h1>
+        <form action="/calculate" method="post">
+            <div id="activity-forms">
+                <div class="activity-form">
+                    <label for="task-name">Task Name:</label>
+                    <input type="text" name="activities" placeholder="Task Name" required>
+                    <label for="duration">Duration:</label>
+                    <input type="number" name="durations" placeholder="Duration" required>
+                    <label for="dependencies">Dependencies (comma-separated):</label>
+                    <input type="text" name="predecessors" placeholder="Dependencies (comma-separated)">
+                </div>
+            </div>
+            <button type="button" onclick="addActivityForm()">Add Another Task</button>
+            <button type="submit">Calculate CPM</button>
+        </form>
+    </div>
+
+    <script>
+        function addActivityForm() {
+            var container = document.getElementById('activity-forms');
+            var newForm = document.createElement('div');
+            newForm.className = 'activity-form';
+            newForm.innerHTML = `
+                <label for="task-name">Task Name:</label>
+                <input type="text" name="activities" placeholder="Task Name" required>
+                <label for="duration">Duration:</label>
+                <input type="number" name="durations" placeholder="Duration" required>
+                <label for="dependencies">Dependencies (comma-separated):</label>
+                <input type="text" name="predecessors" placeholder="Dependencies (comma-separated)">
+            `;
+            container.appendChild(newForm);
+        }
+    </script>
+</body>
+</html>
